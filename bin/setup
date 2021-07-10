@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+set -vx
+
+sudo apt install build-essential libsdl2-dev libgl1-mesa-dev libopenal-dev \
+  libgmp-dev libfontconfig1-dev
+
+bundle install
