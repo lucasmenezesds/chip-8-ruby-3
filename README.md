@@ -5,6 +5,11 @@ I'll be implementing it...
 
 Anyway if you're interested on knowing more about it, you can check [here](https://en.wikipedia.org/wiki/CHIP-8).
 
+### Extras
+
+If you you don't know from where to start or is wondering about some parts of the process of developing this project,
+you can check the [extra section](/extras/README.md), where I wrote down some notes that maybe could be helpful.
+
 ## Installation
 
 **If you're using debian based distro:**
