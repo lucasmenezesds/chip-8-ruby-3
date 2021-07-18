@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative "../lib/chip8"
+
+# rubocop:disable Style/GlobalVars
+$DEBUG_FLAG = ARGV[0]&.to_i == 1
+rom_path_arg = ARGV[1]
+# rubocop:enable Style/GlobalVars
+
+cpu = Chip8::Emulator.new(rom_path: rom_path_arg)
+cpu.run
