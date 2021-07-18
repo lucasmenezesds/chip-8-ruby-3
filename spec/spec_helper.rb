@@ -1,5 +1,16 @@
 # frozen_string_literal: true
 
+require "simplecov"
+
+SimpleCov.start do
+  track_files "lib/**/*.rb"
+  add_group "Lib", "lib/"
+
+  add_filter "spec/"
+
+  enable_coverage :branch
+end
+
 require "chip8"
 
 RSpec.configure do |config|
