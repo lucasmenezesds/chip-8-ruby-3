@@ -2,11 +2,13 @@
 
 module Chip8
   module Components
-    # CHIP-8's Instructions
+    # Chip-8's Instructions
+
+    # rubocop:disable Metrics/ModuleLength
+    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/MethodLength
     module Instructions
-      # rubocop:disable Metrics/AbcSize
-      # rubocop:disable Metrics/MethodLength
-      def self.run(nibble, display:, register:, program_counter:, memory:)
+      def self.run(nibble, display:, keyboard:, memory:, program_counter:, register:, stack:)
         case nibble["instruction"]
         when 0x0
           debug("00E0", "clear screen", nibble, program_counter: program_counter)
@@ -56,5 +58,8 @@ module Chip8
         puts "=="
       end
     end
+    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/ModuleLength
   end
 end

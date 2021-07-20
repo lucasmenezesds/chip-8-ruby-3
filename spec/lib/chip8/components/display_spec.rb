@@ -3,9 +3,9 @@
 require "matrix"
 
 describe Chip8::Components::Display do
-  context "when initialized" do
-    cpu_status = Chip8::Components::CPUStatus.new
-    subject { described_class.new(cpu_status) }
+
+  context "after initialized" do
+    subject { described_class.new(Chip8::Components::CPUStatus.new, Chip8::Components::Keyboard.new) }
     it "should have the expected caption" do
       caption = subject.caption
 
@@ -14,12 +14,13 @@ describe Chip8::Components::Display do
   end
 
   context "mocking the constants" do
+
     before(:example) do
       stub_const("Chip8::Components::Display::WIDTH", 3)
       stub_const("Chip8::Components::Display::HEIGHT", 2)
       stub_const("Chip8::Components::Display::SCALE", 1)
-      @cpu_status = Chip8::Components::CPUStatus.new
-      @mocked_display = described_class.new(@cpu_status)
+
+      @mocked_display = described_class.new(Chip8::Components::CPUStatus.new, Chip8::Components::Keyboard.new)
     end
 
     context "#update_display_buffer" do

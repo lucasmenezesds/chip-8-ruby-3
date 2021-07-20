@@ -5,7 +5,7 @@ require "matrix"
 
 module Chip8
   module Components
-    # CHIP-8s Display
+    # Chip-8s Display
     class Display < Gosu::Window
       WIDTH = 64
       HEIGHT = 32
@@ -16,11 +16,12 @@ module Chip8
 
       attr_reader :display_buffer
 
-      def initialize(halt_option)
+      def initialize(halt_option, keyboard)
         super (WIDTH * SCALE), (HEIGHT * SCALE)
         self.caption = "CHIP-8 Display"
         @display_buffer = Matrix.zero(WIDTH, HEIGHT)
         @halt_option = halt_option
+        @keyboard = keyboard
       end
 
       def update; end
@@ -50,6 +51,8 @@ module Chip8
         when Gosu::KB_ESCAPE
           @halt_option.stop_it
           puts "== Bye Bye! =="
+        else
+          @keyboard.key_pressed(id)
         end
       end
 
@@ -57,6 +60,8 @@ module Chip8
         case id
         when Gosu::KB_ESCAPE
           close
+        else
+          @keyboard.key_released(id)
         end
       end
     end

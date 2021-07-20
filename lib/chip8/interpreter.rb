@@ -9,10 +9,12 @@ module Chip8
 
     def initialize
       @cpu_status = CPUStatus.new
-      @display = Display.new(@cpu_status)
+      @keyboard = Keyboard.new
+      @display = Display.new(@cpu_status, @keyboard)
       @memory = Memory.new
       @program_counter = ProgramCounter.new(starting_index: Memory::PROGRAMS_STARTING_ADDRESS)
       @register = Register.new
+      @stack = Stack.new
       @opcode = nil
       @nibbles = { "instruction" => nil, "x" => 0, "y" => 0, "n" => nil, "nn" => nil, "nnn" => nil }
     end
@@ -79,7 +81,9 @@ module Chip8
                        display: @display,
                        register: @register,
                        program_counter: @program_counter,
-                       memory: @memory)
+                       memory: @memory,
+                       keyboard: @keyboard,
+                       stack: @stack)
     end
   end
 end
