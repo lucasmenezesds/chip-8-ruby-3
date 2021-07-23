@@ -8,7 +8,7 @@ describe Chip8::Components::Keyboard do
 
     shared_examples "emulating the the keyboards key pressed" do |keyboard_key, expected_pos|
       it "should return the expected Vposition #{expected_pos} as 1" do
-        subject.key_pressed(keyboard_key)
+        subject.press_key(keyboard_key)
 
         expect(subject.keyboard_register[expected_pos]).to eq 1
       end
@@ -16,7 +16,7 @@ describe Chip8::Components::Keyboard do
 
     shared_examples "emulating the the keyboards key released" do |keyboard_key, expected_pos|
       it "should return the expected Vposition #{expected_pos} as 0" do
-        subject.key_released(keyboard_key)
+        subject.release_key(keyboard_key)
 
         expect(subject.keyboard_register[expected_pos]).to eq 0
       end
@@ -56,6 +56,38 @@ describe Chip8::Components::Keyboard do
       include_examples "emulating the the keyboards key released", Gosu::KB_X, 0x0
       include_examples "emulating the the keyboards key released", Gosu::KB_C, 0xB
       include_examples "emulating the the keyboards key released", Gosu::KB_V, 0xF
+    end
+
+    describe "#key_value" do
+      it "should return the expected value from the pressed key" do
+        keyboard_value = subject.key_value(Gosu::KB_1)
+        keyboard_value2 = subject.key_value(Gosu::KB_4)
+        keyboard_value3 = subject.key_value(Gosu::KB_V)
+
+        expect(keyboard_value).to eq 0x1
+        expect(keyboard_value2).to eq 0xC
+        expect(keyboard_value3).to eq 0xF
+      end
+    end
+
+    describe "#position_of_key_pressed" do
+      it "should return the the position of the key pressed" do
+        subject.instance_variable_set(:@keyboard_register, [0, 0, 0, 0, 1, 0, 0, 0])
+
+        position = subject.position_of_key_pressed
+
+        expect(position).to eq 0x4
+      end
+    end
+
+    describe "#key_pressed?" do
+      it "should return the the position of the key pressed if its pressed" do
+        subject.instance_variable_set(:@keyboard_register, [0, 0, 0, 0, 0, 1, 0, 0])
+
+        position = subject.key_pressed?(5)
+
+        expect(position).to be_truthy
+      end
     end
   end
 end

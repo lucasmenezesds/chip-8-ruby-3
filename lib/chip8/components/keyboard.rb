@@ -29,18 +29,26 @@ module Chip8
         @keyboard_register = Array.new(0xF, 0x0)
       end
 
-      def key_pressed(key_id)
+      def press_key(key_id)
         pos = KEYBOARD_POSITIONS.fetch(key_id, nil)
         @keyboard_register[pos] = 1 if pos
       end
 
-      def key_released(key_id)
+      def release_key(key_id)
         pos = KEYBOARD_POSITIONS.fetch(key_id, nil)
         @keyboard_register[pos] = 0 if pos
       end
 
       def key_pressed?(key_position)
         @keyboard_register[key_position].positive?
+      end
+
+      def key_value(key_id)
+        KEYBOARD_POSITIONS.fetch(key_id, 0)
+      end
+
+      def position_of_key_pressed
+        @keyboard_register.find_index(1)
       end
     end
   end

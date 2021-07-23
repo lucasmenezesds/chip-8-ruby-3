@@ -16,15 +16,19 @@ module Chip8
 
       attr_reader :display_buffer
 
-      def initialize(halt_option, keyboard)
+      def initialize(cpu_status:, keyboard:, clock:)
         super (WIDTH * SCALE), (HEIGHT * SCALE)
         self.caption = "CHIP-8 Display"
         @display_buffer = Matrix.zero(WIDTH, HEIGHT)
-        @halt_option = halt_option
+        @cpu_status = cpu_status
         @keyboard = keyboard
+        @clock = clock
       end
 
-      def update; end
+      def update
+        @clock.update_delay_timer
+        @clock.update_sound_timer
+      end
 
       def draw
         (0..(WIDTH - 1)).each do |width|
@@ -49,10 +53,19 @@ module Chip8
       def button_down(id)
         case id
         when Gosu::KB_ESCAPE
-          @halt_option.stop_it
+          @cpu_status.stop_it
           puts "== Bye Bye! =="
+        when Gosu::KB_P
+          $STEP_BY_STEP_FLAG = !$STEP_BY_STEP_FLAG
+
+        when Gosu::KB_8
+          @clock.decrease_cpu_clock
+        when Gosu::KB_9
+          @clock.increase_cpu_clock
+        when Gosu::KB_0
+          @clock.reset_cpu_clock
         else
-          @keyboard.key_pressed(id)
+          @keyboard.press_key(id)
         end
       end
 
@@ -61,7 +74,7 @@ module Chip8
         when Gosu::KB_ESCAPE
           close
         else
-          @keyboard.key_released(id)
+          @keyboard.release_key(id)
         end
       end
     end

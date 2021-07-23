@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative "components/clock"
 require_relative "components/cpu_status"
 require_relative "components/display"
 require_relative "components/fonts"
