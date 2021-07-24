@@ -33,9 +33,9 @@ module Chip8
         next unless time_elapsed >= @clock.cpu_clock
 
         cpu_cycle
-        break if @cpu_status.stopped
 
         start_time = Time.now
+        break if @cpu_status.stopped
       end
     end
 

@@ -8,12 +8,12 @@ module Chip8
     class Memory
       include Chip8::Components::Fonts # making constants, etc from the module  available on the current class.
 
-      attr_reader :memory
-
       RAM_STARTING_ADDRESS = 0x000
       RAM_ENDING_ADDRESS = 0x1FF
       PROGRAMS_STARTING_ADDRESS = 0x200
       TOTAL_MEMORY_SIZE = 0x1000 # 4096 Addresses => "4 kB of RAM"
+
+      attr_reader :memory
 
       def initialize
         # Starting a array of 4096 positions with 0 wrote on all of it

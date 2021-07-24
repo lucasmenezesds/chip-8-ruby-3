@@ -42,24 +42,41 @@ module Chip8
       end
 
       def copy_variable_data_from_to(from_pos_y, to_pos_x)
+        validate_position_ranges(to_pos_x, from_pos_y)
         @variable[to_pos_x] = @variable[from_pos_y]
       end
 
       def bitwise_logical_or(pos_x, pos_y)
+        validate_position_ranges(pos_x, pos_y)
         @variable[pos_x] = @variable[pos_x] | @variable[pos_y]
       end
 
       def bitwise_logical_and(pos_x, pos_y)
+        validate_position_ranges(pos_x, pos_y)
         @variable[pos_x] = @variable[pos_x] & @variable[pos_y]
       end
 
       def bitwise_logical_xor(pos_x, pos_y)
+        validate_position_ranges(pos_x, pos_y)
         @variable[pos_x] = @variable[pos_x] ^ @variable[pos_y]
       end
 
+      def bitwise_logical_shift(pos_x, pos_y, to_right: true)
+        validate_position_ranges(pos_x, pos_y)
+        vx = @variable[pos_x]
+        vy = @variable[pos_y]
+
+        if to_right
+          @variable[pos_x] = (vy >> 1) & 0xFF # To avoid overflow
+          @variable[0xF] = (vx & 0x01) # 0b1 (extracting the low bit)
+        else
+          @variable[pos_x] = (vy << 1) & 0xFF # To avoid overflow
+          @variable[0xF] = (vx & 0x80) >> 7 # 0x80 # 0b10000000 (extracting the high bit)
+        end
+      end
+
       def sum_variable_from_into(pos_y, pos_x)
-        raise ArgumentError, "Invalid Variable Position X: #{pos_x}" if pos_x > 0xF # 15
-        raise ArgumentError, "Invalid Variable Position Y: #{pos_y}" if pos_y > 0xF # 15
+        validate_position_ranges(pos_x, pos_y)
 
         final_value = @variable[pos_x] + @variable[pos_y]
         @variable[0xF] = final_value > 0xFF ? 0x1 : 0x0
@@ -75,19 +92,6 @@ module Chip8
         @variable[var_destination] = final_value & 0xFF
       end
 
-      def bitwise_logical_shift(pos_x, pos_y, to_right: true, old_version: true)
-        vx = @variable[pos_x]
-        vy = @variable[pos_y]
-
-        if to_right
-          @variable[pos_x] = (vy >> 1) & 0xFF # To avoid overflow
-          @variable[0xF] = (vx & 0x01) # 0b1 (extracting the low bit)
-        else
-          @variable[pos_x] = (vy << 1) & 0xFF # To avoid overflow
-          @variable[0xF] = (vx & 0x80) >> 7 # 0x80 # 0b10000000 (extracting the high bit)
-        end
-      end
-
       def set_random_value_into_variable(pos_x, value)
         @variable[pos_x] = (Random.rand(0xFF) & value)
       end
@@ -96,30 +100,30 @@ module Chip8
         @variable[0xF] = 0
 
         (0..(n_pixels_tall - 1)).each do |row|
-          pos_y = @variable[register_y] % Display::HEIGHT + row # 0x20
+          var_y = @variable[register_y] % Display::HEIGHT + row # 0x20
           sprite_memory_address = @index + row
           sprite = memory.access(sprite_memory_address)
 
-          break if pos_y.nil? || pos_y > Display::HEIGHT - 1 # 0x1F= 31 # To stop drawing when leaving the screen
+          break if var_y.nil? || var_y > Display::HEIGHT - 1 # 0x1F= 31 # To stop drawing when leaving the screen
 
-          draw_sprite_on_display_buffer(display_buffer, pos_y, register_x, sprite)
+          draw_sprite_on_display_buffer(display_buffer, var_y, register_x, sprite)
         end
         display_buffer
       end
 
-      def draw_sprite_on_display_buffer(display_buffer, pos_y, register_x, sprite)
+      def draw_sprite_on_display_buffer(display_buffer, var_y, register_x, sprite)
         (0..7).each do |pixel_position|
-          pos_x = @variable[register_x] % Display::WIDTH + pixel_position # 0x40
+          var_x = @variable[register_x] % Display::WIDTH + pixel_position # 0x40
 
-          break if pos_x.nil? || pos_x > Display::WIDTH - 1 # 0x3F = 63 # To stop drawing when leaving the screen
+          break if var_x.nil? || var_x > Display::WIDTH - 1 # 0x3F = 63 # To stop drawing when leaving the screen
 
           # the way we output in the screen is from the high bit to the low bit
           memory_pixel = (sprite & (1 << (7 - pixel_position))).positive? ? 1 : 0
           # memory_pixel = sprite.to_s(2).rjust(8, '0')[pixel_position].to_i # slower method
 
-          screen_pixel = display_buffer[pos_x, pos_y] #  & 0x1
+          screen_pixel = display_buffer[var_x, var_y] #  & 0x1
 
-          display_buffer[pos_x, pos_y] = memory_pixel ^ screen_pixel
+          display_buffer[var_x, var_y] = memory_pixel ^ screen_pixel
 
           # can be a bitwise operation as well
           # @variable[0xF] = (memory_pixel && screen_pixel) || @variable[0xF]
@@ -129,6 +133,13 @@ module Chip8
                              @variable[0xF]
                            end
         end
+      end
+
+      private
+
+      def validate_position_ranges(pos_x, pos_y)
+        raise ArgumentError, "Invalid Variable Position X: #{pos_x}" if pos_x > 0xF # 15
+        raise ArgumentError, "Invalid Variable Position Y: #{pos_y}" if pos_y > 0xF # 15
       end
     end
   end

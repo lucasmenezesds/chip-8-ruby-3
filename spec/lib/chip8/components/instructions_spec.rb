@@ -23,12 +23,12 @@ describe Chip8::Components::Instructions do
           expect(@display_double).to receive(:clean_display).once
 
           described_class.run(nibble, display: @display_double,
-                              register: @register_double,
-                              program_counter: @program_counter_double,
-                              memory: @memory_double,
-                              keyboard: @keyboard_double,
-                              stack: @stack_double,
-                              clock: @clock_double)
+                                      register: @register_double,
+                                      program_counter: @program_counter_double,
+                                      memory: @memory_double,
+                                      keyboard: @keyboard_double,
+                                      stack: @stack_double,
+                                      clock: @clock_double)
         end
       end
     end
@@ -41,16 +41,16 @@ describe Chip8::Components::Instructions do
         allow(described_class).to receive(:debug)
 
         expect(@program_counter_double).to receive(:new_position)
-                                             .with(nibble["nnn"])
-                                             .once
+          .with(nibble["nnn"])
+          .once
 
         described_class.run(nibble, display: @display_double,
-                            register: @register_double,
-                            program_counter: @program_counter_double,
-                            memory: @memory_double,
-                            keyboard: @keyboard_double,
-                            stack: @stack_double,
-                            clock: @clock_double)
+                                    register: @register_double,
+                                    program_counter: @program_counter_double,
+                                    memory: @memory_double,
+                                    keyboard: @keyboard_double,
+                                    stack: @stack_double,
+                                    clock: @clock_double)
       end
     end
 
@@ -62,16 +62,16 @@ describe Chip8::Components::Instructions do
         allow(described_class).to receive(:debug)
 
         expect(@register_double).to receive(:set_variable_in_position)
-                                      .with(nibble["x"], nibble["nn"])
-                                      .once
+          .with(nibble["x"], nibble["nn"])
+          .once
 
         described_class.run(nibble, display: @display_double,
-                            register: @register_double,
-                            program_counter: @program_counter_double,
-                            memory: @memory_double,
-                            keyboard: @keyboard_double,
-                            stack: @stack_double,
-                            clock: @clock_double)
+                                    register: @register_double,
+                                    program_counter: @program_counter_double,
+                                    memory: @memory_double,
+                                    keyboard: @keyboard_double,
+                                    stack: @stack_double,
+                                    clock: @clock_double)
       end
     end
 
@@ -83,16 +83,16 @@ describe Chip8::Components::Instructions do
         allow(described_class).to receive(:debug)
 
         expect(@register_double).to receive(:add_to_variable)
-                                      .with(nibble["x"], nibble["nn"])
-                                      .once
+          .with(nibble["x"], nibble["nn"])
+          .once
 
         described_class.run(nibble, display: @display_double,
-                            register: @register_double,
-                            program_counter: @program_counter_double,
-                            memory: @memory_double,
-                            keyboard: @keyboard_double,
-                            stack: @stack_double,
-                            clock: @clock_double)
+                                    register: @register_double,
+                                    program_counter: @program_counter_double,
+                                    memory: @memory_double,
+                                    keyboard: @keyboard_double,
+                                    stack: @stack_double,
+                                    clock: @clock_double)
       end
     end
 
@@ -104,16 +104,16 @@ describe Chip8::Components::Instructions do
         allow(described_class).to receive(:debug)
 
         expect(@register_double).to receive(:set_index)
-                                      .with(nibble["nnn"])
-                                      .once
+          .with(nibble["nnn"])
+          .once
 
         described_class.run(nibble, display: @display_double,
-                            register: @register_double,
-                            program_counter: @program_counter_double,
-                            memory: @memory_double,
-                            keyboard: @keyboard_double,
-                            stack: @stack_double,
-                            clock: @clock_double)
+                                    register: @register_double,
+                                    program_counter: @program_counter_double,
+                                    memory: @memory_double,
+                                    keyboard: @keyboard_double,
+                                    stack: @stack_double,
+                                    clock: @clock_double)
       end
     end
 
@@ -129,25 +129,25 @@ describe Chip8::Components::Instructions do
         allow(@memory_double).to receive(:access)
 
         expect(@register_double).to receive(:new_display_data)
-                                      .with(nibble["x"],
-                                            nibble["y"],
-                                            nibble["n"],
-                                            @memory_double,
-                                            @display_double)
-                                      .and_return(mock_matrix)
-                                      .once
+          .with(nibble["x"],
+                nibble["y"],
+                nibble["n"],
+                @memory_double,
+                @display_double)
+          .and_return(mock_matrix)
+          .once
 
         expect(@display_double).to receive(:update_display_buffer)
-                                     .with(Matrix.zero(1, 1))
-                                     .once
+          .with(Matrix.zero(1, 1))
+          .once
 
         described_class.run(nibble, display: @display_double,
-                            register: @register_double,
-                            program_counter: @program_counter_double,
-                            memory: @memory_double,
-                            keyboard: @keyboard_double,
-                            stack: @stack_double,
-                            clock: @clock_double)
+                                    register: @register_double,
+                                    program_counter: @program_counter_double,
+                                    memory: @memory_double,
+                                    keyboard: @keyboard_double,
+                                    stack: @stack_double,
+                                    clock: @clock_double)
       end
     end
 
@@ -159,12 +159,12 @@ describe Chip8::Components::Instructions do
         expect(described_class).to receive(:puts).once
 
         described_class.run(nibble, display: @display_double,
-                            register: @register_double,
-                            program_counter: @program_counter_double,
-                            memory: @memory_double,
-                            keyboard: @keyboard_double,
-                            stack: @stack_double,
-                            clock: @clock_double)
+                                    register: @register_double,
+                                    program_counter: @program_counter_double,
+                                    memory: @memory_double,
+                                    keyboard: @keyboard_double,
+                                    stack: @stack_double,
+                                    clock: @clock_double)
       end
     end
   end
