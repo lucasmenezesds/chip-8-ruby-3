@@ -4,7 +4,7 @@ require_relative "./fonts"
 
 module Chip8
   module Components
-    # CHIP-8's RAM representation
+    # Chip-8s RAM representation
     class Memory
       include Chip8::Components::Fonts # making constants, etc from the module  available on the current class.
 
@@ -18,6 +18,7 @@ module Chip8
       def initialize
         # Starting a array of 4096 positions with 0 wrote on all of it
         @memory = Array.new(TOTAL_MEMORY_SIZE, 0x0)
+        load_fonts_into_memory
       end
 
       def update_value(array_position, new_value)

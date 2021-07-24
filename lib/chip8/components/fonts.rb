@@ -2,7 +2,7 @@
 
 module Chip8
   module Components
-    # CHIP-8's Font
+    # Chip-8s Font
     module Fonts
       FONTS = [
         0xF0, 0x90, 0x90, 0x90, 0xF0, # 0
@@ -23,6 +23,7 @@ module Chip8
         0xF0, 0x80, 0xF0, 0x80, 0x80 # F
       ].freeze
       # This position is kind of a convention (Dont' Know why) but Anywhere in the first 512 bytes (000~1FF) is fine.
+
       FONT_STARTING_ADDRESS = 0x050
       FONT_ENDING_ADDRESS = 0x09F
     end
