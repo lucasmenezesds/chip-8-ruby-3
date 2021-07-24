@@ -279,8 +279,8 @@ module Chip8
       def self.instruction_fx55(memory, nibbles, program_counter, register)
         Chip8::Helpers::Debug.debug("FX55", "", nibbles, program_counter: program_counter)
         # Modern
-        variable_x_value = nibbles["x"]
-        (0x0..variable_x_value).each do |pos|
+        x_value = nibbles["x"]
+        (0x0..x_value).each do |pos|
           memory_position = register.index + pos
           register_data = register.get_variable_in_position(pos)
           memory.update_value(memory_position, register_data)
@@ -290,8 +290,8 @@ module Chip8
       def self.instruction_fx65(memory, nibbles, program_counter, register)
         Chip8::Helpers::Debug.debug("FX65", "", nibbles, program_counter: program_counter, force_debug: false)
         # Modern
-        variable_x_value = nibbles["x"]
-        (0x0..variable_x_value).each do |pos|
+        x_value = nibbles["x"]
+        (0x0..x_value).each do |pos|
           memory_position = register.index + pos
           memory_data = memory.access(memory_position)
           register.set_variable_in_position(pos, memory_data)
