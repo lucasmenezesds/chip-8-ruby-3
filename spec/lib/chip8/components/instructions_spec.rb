@@ -8,6 +8,7 @@ describe Chip8::Components::Instructions do
     @memory_double = instance_double("Chip8::Components::Memory")
     @keyboard_double = instance_double("Chip8::Components::Keyboard")
     @stack_double = instance_double("Chip8::Components::Stack")
+    @clock_double = instance_double("Chip8::Components::Clock")
   end
 
   context "#run" do
@@ -26,7 +27,8 @@ describe Chip8::Components::Instructions do
                               program_counter: @program_counter_double,
                               memory: @memory_double,
                               keyboard: @keyboard_double,
-                              stack: @stack)
+                              stack: @stack_double,
+                              clock: @clock_double)
         end
       end
     end
@@ -47,7 +49,8 @@ describe Chip8::Components::Instructions do
                             program_counter: @program_counter_double,
                             memory: @memory_double,
                             keyboard: @keyboard_double,
-                            stack: @stack_double)
+                            stack: @stack_double,
+                            clock: @clock_double)
       end
     end
 
@@ -58,7 +61,7 @@ describe Chip8::Components::Instructions do
 
         allow(described_class).to receive(:debug)
 
-        expect(@register_double).to receive(:set_variable)
+        expect(@register_double).to receive(:set_variable_in_position)
                                       .with(nibble["x"], nibble["nn"])
                                       .once
 
@@ -67,7 +70,8 @@ describe Chip8::Components::Instructions do
                             program_counter: @program_counter_double,
                             memory: @memory_double,
                             keyboard: @keyboard_double,
-                            stack: @stack_double)
+                            stack: @stack_double,
+                            clock: @clock_double)
       end
     end
 
@@ -87,7 +91,8 @@ describe Chip8::Components::Instructions do
                             program_counter: @program_counter_double,
                             memory: @memory_double,
                             keyboard: @keyboard_double,
-                            stack: @stack_double)
+                            stack: @stack_double,
+                            clock: @clock_double)
       end
     end
 
@@ -98,7 +103,7 @@ describe Chip8::Components::Instructions do
 
         allow(described_class).to receive(:debug)
 
-        expect(@register_double).to receive(:new_index)
+        expect(@register_double).to receive(:set_index)
                                       .with(nibble["nnn"])
                                       .once
 
@@ -107,7 +112,8 @@ describe Chip8::Components::Instructions do
                             program_counter: @program_counter_double,
                             memory: @memory_double,
                             keyboard: @keyboard_double,
-                            stack: @stack_double)
+                            stack: @stack_double,
+                            clock: @clock_double)
       end
     end
 
@@ -140,7 +146,8 @@ describe Chip8::Components::Instructions do
                             program_counter: @program_counter_double,
                             memory: @memory_double,
                             keyboard: @keyboard_double,
-                            stack: @stack_double)
+                            stack: @stack_double,
+                            clock: @clock_double)
       end
     end
 
@@ -156,53 +163,9 @@ describe Chip8::Components::Instructions do
                             program_counter: @program_counter_double,
                             memory: @memory_double,
                             keyboard: @keyboard_double,
-                            stack: @stack_double)
+                            stack: @stack_double,
+                            clock: @clock_double)
       end
-    end
-  end
-
-  context "#debug" do
-    it "should puts the debug when $DEBUG_FLAG is TRUE & full_nibble=true" do
-      $DEBUG_FLAG = true
-      nibble = { "instruction" => 0xFFFF, "x" => 0, "y" => 0,
-                 "n" => nil, "nn" => nil, "nnn" => nil }
-      allow(@program_counter_double).to receive_message_chain(:index, :inspect).and_return("")
-
-      expect(described_class).to receive(:puts).exactly(7)
-
-      described_class.debug(nibble["instruction"],
-                            "test",
-                            nibble,
-                            program_counter: @program_counter_double,
-                            full_nibble: true)
-    end
-
-    it "should puts the debug when $DEBUG_FLAG is TRUE" do
-      $DEBUG_FLAG = true
-      nibble = { "instruction" => 0xFFFF, "x" => 0, "y" => 0,
-                 "n" => nil, "nn" => nil, "nnn" => nil }
-
-      expect(described_class).to receive(:puts).exactly(6)
-
-      described_class.debug(nibble["instruction"],
-                            "test",
-                            nibble,
-                            program_counter: nil,
-                            full_nibble: false)
-    end
-
-    it "should puts the debug when $DEBUG_FLAG is FALSE" do
-      $DEBUG_FLAG = false
-      nibble = { "instruction" => 0xFFFF, "x" => 0, "y" => 0,
-                 "n" => nil, "nn" => nil, "nnn" => nil }
-
-      expect(described_class).to receive(:puts).exactly(0)
-
-      described_class.debug(nibble["instruction"],
-                            "test",
-                            nibble,
-                            program_counter: @program_counter_double,
-                            full_nibble: true)
     end
   end
 end

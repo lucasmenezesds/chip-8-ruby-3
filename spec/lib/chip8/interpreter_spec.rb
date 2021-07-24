@@ -38,7 +38,7 @@ describe Chip8::Interpreter do
 
       subject.cpu_cycle
 
-      expected_nibble = { "4" => 14, "instruction" => 0, "n" => 14, "nn" => 14, "nnn" => 14, "x" => 0, "y" => 0 }
+      expected_nibble = { "instruction" => 0, "n" => 14, "nn" => 14, "nnn" => 14, "x" => 0, "y" => 0 }
 
       expect(subject.instance_variable_get(:@opcode)).to eq(0xE)
       expect(subject.instance_variable_get(:@nibbles)).to eq(expected_nibble)

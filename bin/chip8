@@ -4,6 +4,7 @@
 require_relative "../lib/chip8"
 
 # rubocop:disable Style/GlobalVars
+$STEP_BY_STEP_FLAG = false
 $DEBUG_FLAG = ARGV[0]&.to_i == 1
 rom_path_arg = ARGV[1]
 # rubocop:enable Style/GlobalVars

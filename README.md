@@ -40,7 +40,44 @@ $ bundle install
 
 ## Usage
 
-TODO: Write usage instructions here
+**To run the project:**
+
+1. Place a rom inside the folder `roms/`
+2. From the root folder run the command `bin/chip8 0 'roms/name_of_the_rom.extension'`
+
+*If you want to enable the debug then set the flag zero to 1*
+
+### Keyboard
+
+--------------------------------------------
+
+Your Keyboard => CHIP-8 Keybaord
+
+`1` `2` `3` `4`        => `1` `2` `3` `C`
+
+`Q` `W` `E` `R`        => `4` `5` `6` `D`
+
+`A` `S` `D` `F`        => `7` `8` `9` `E`
+
+`Z` `X` `C` `V`        => `A` `0` `B` `F`
+
+**NOTE:** This Keyboard is for QWERTY setup.
+
+--------------------------------------------
+
+
+
+**Other Commands**
+
+*(Not in the numpad)*
+
+- **Number 8** => Reduce ROM speed by 20
+- **Number 9** => Increase ROM speed by 20
+- **Number 0** => Reset ROM speed to 60Hz
+
+---------------
+
+- TODO: Improve instructions and readme.
 
 ## Development
 

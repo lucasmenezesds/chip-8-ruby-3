@@ -33,8 +33,9 @@ module Chip8
         next unless time_elapsed >= @clock.cpu_clock
 
         cpu_cycle
-        start_time = Time.now
         break if @cpu_status.stopped
+
+        start_time = Time.now
       end
     end
 
@@ -77,10 +78,6 @@ module Chip8
       @nibbles["n"] = @opcode & 0x000F # getting the fourth nibble from 2 bytes data
       @nibbles["nn"] = @opcode & 0x00FF # getting the third and fourth nibbles(second byte) from 2 bytes data
       @nibbles["nnn"] = @opcode & 0x0FFF # getting the second nibble from 2 bytes data
-
-      # Alternative
-      # CONS: usage of + memory
-      @nibbles["4"] = @opcode & 0x000F
 
       nil
     end
