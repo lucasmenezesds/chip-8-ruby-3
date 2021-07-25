@@ -1,14 +1,14 @@
 # Chip-8 Emulator in Ruby 3
 
-Hi! This project is called "CHIP-8 emulator" in Ruby 3 but actually, CHIP-8 is an interpreted programming language, and
-I'll be implementing it...
+Hi! This project is called "CHIP 8 emulator" in Ruby 3 but actually, CHIP 8 is an interpreted programming language, and
+this is an implementation of it...
 
-Anyway if you're interested on knowing more about it, you can check [here](https://en.wikipedia.org/wiki/CHIP-8).
+If you're interested on knowing more about it, you can check [here](https://en.wikipedia.org/wiki/CHIP-8).
 
 ### Extras
 
-If you you don't know from where to start or is wondering about some parts of the process of developing this project,
-you can check the [extra section](/extras/README.md), where I wrote down some notes that maybe could be helpful.
+In case you don't know from where to start or is wondering about some parts of the process for developing this project, you
+can check the [extra section](/extras/README.md), where I wrote down some notes that maybe could be helpful.
 
 ## Installation
 
@@ -77,7 +77,6 @@ Your Keyboard => CHIP-8 Keybaord
 
 ---------------
 
-- TODO: Improve instructions and readme.
 
 ## Development
 
@@ -86,6 +85,8 @@ otherwise check the **Other O.S'** section_).
 
 Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to
 experiment.
+
+The used ruby's version is `3.0.2`.
 
 ## Other information
 
