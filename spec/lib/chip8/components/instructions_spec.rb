@@ -42,7 +42,7 @@ describe Chip8::Components::Instructions do
 
           allow(@stack_double).to receive(:pop_data).and_return(10)
 
-          expect(@program_counter_double).to receive(:new_position).once
+          expect(@program_counter_double).to receive(:update_index).once
 
           described_class.run(nibble, display: @display_double,
                                       register: @register_double,
@@ -78,7 +78,7 @@ describe Chip8::Components::Instructions do
 
           allow(Chip8::Helpers::Debug).to receive(:debug)
 
-          expect(@program_counter_double).to receive(:new_position)
+          expect(@program_counter_double).to receive(:update_index)
             .with(nibble["nnn"])
             .once
 
@@ -105,7 +105,7 @@ describe Chip8::Components::Instructions do
 
           expect(@stack_double).to receive(:push_data).once
 
-          expect(@program_counter_double).to receive(:new_position)
+          expect(@program_counter_double).to receive(:update_index)
             .with(nibble["nnn"])
             .once
 
@@ -341,7 +341,7 @@ describe Chip8::Components::Instructions do
 
         allow(described_class).to receive(:debug)
 
-        expect(@register_double).to receive(:set_index)
+        expect(@register_double).to receive(:update_index)
           .with(nibble["nnn"])
           .once
 
@@ -600,7 +600,7 @@ describe Chip8::Components::Instructions do
           allow(Chip8::Helpers::Debug).to receive(:debug)
 
           allow(@register_double).to receive(:get_variable_in_position).and_return(0x5)
-          expect(@clock_double).to receive(:set_delay_timer).with(0x5).once
+          expect(@clock_double).to receive(:update_delay_timer).with(0x5).once
 
           described_class.run(nibble, display: @display_double,
                                       register: @register_double,
@@ -620,7 +620,7 @@ describe Chip8::Components::Instructions do
           allow(Chip8::Helpers::Debug).to receive(:debug)
 
           allow(@register_double).to receive(:get_variable_in_position).and_return(0xA)
-          expect(@clock_double).to receive(:set_sound_timer).with(0xA).once
+          expect(@clock_double).to receive(:update_sound_timer).with(0xA).once
 
           described_class.run(nibble, display: @display_double,
                                       register: @register_double,
@@ -641,7 +641,7 @@ describe Chip8::Components::Instructions do
 
           allow(@register_double).to receive(:get_variable_in_position).and_return(0xA)
           allow(@register_double).to receive(:index).and_return(0x5)
-          allow(@register_double).to receive(:set_index).with(0xF).once
+          allow(@register_double).to receive(:update_index).with(0xF).once
 
           described_class.run(nibble, display: @display_double,
                                       register: @register_double,
@@ -661,7 +661,7 @@ describe Chip8::Components::Instructions do
           allow(Chip8::Helpers::Debug).to receive(:debug)
 
           allow(@register_double).to receive(:get_variable_in_position).and_return(0xA)
-          allow(@register_double).to receive(:set_index).with(0x82).once # Because of the Font starting address
+          allow(@register_double).to receive(:update_index).with(0x82).once # Because of the Font starting address
 
           described_class.run(nibble, display: @display_double,
                                       register: @register_double,

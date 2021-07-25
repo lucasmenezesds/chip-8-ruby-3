@@ -14,7 +14,7 @@ module Chip8
         @variable = Array.new(0x10, 0x0) # 16 8-bit (one byte) general-purpose variable registers
       end
 
-      def set_index(new_index)
+      def update_index(new_index)
         raise ArgumentError, "Invalid Index: #{new_index}" if new_index > 0xFFF # 4095
 
         @index = new_index
@@ -111,6 +111,7 @@ module Chip8
         display_buffer
       end
 
+      # rubocop:disable Metrics/AbcSize
       def draw_sprite_on_display_buffer(display_buffer, var_y, register_x, sprite)
         (0..7).each do |pixel_position|
           var_x = @variable[register_x] % Display::WIDTH + pixel_position # 0x40
@@ -125,8 +126,6 @@ module Chip8
 
           display_buffer[var_x, var_y] = memory_pixel ^ screen_pixel
 
-          # can be a bitwise operation as well
-          # @variable[0xF] = (memory_pixel && screen_pixel) || @variable[0xF]
           @variable[0xF] = if memory_pixel.positive? && screen_pixel.positive?
                              0x01
                            else
@@ -134,6 +133,8 @@ module Chip8
                            end
         end
       end
+
+      # rubocop:enable Metrics/AbcSize
 
       private
 

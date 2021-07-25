@@ -3,15 +3,15 @@
 describe Chip8::Components::Register do
   subject { described_class.new }
 
-  context "#new_index" do
+  context "#update_index" do
     it "should set the Index Register to the expected value" do
-      subject.set_index(0x10)
+      subject.update_index(0x10)
 
       expect(subject.index).to eq 0x10
     end
 
     it "should raise an argument error if tried set the Index Register bigger than 0xFFF" do
-      expect { subject.set_index(0xFFF1) }.to raise_error(ArgumentError)
+      expect { subject.update_index(0xFFF1) }.to raise_error(ArgumentError)
     end
   end
 

@@ -138,8 +138,8 @@ describe Chip8::Components::Display do
 
     context "#update" do
       it "should have the clock methods " do
-        expect(@clock_double).to receive(:update_delay_timer).exactly(1)
-        expect(@clock_double).to receive(:update_sound_timer).exactly(1)
+        expect(@clock_double).to receive(:tick_delay_timer).exactly(1)
+        expect(@clock_double).to receive(:tick_sound_timer).exactly(1)
 
         @mocked_display.update
       end

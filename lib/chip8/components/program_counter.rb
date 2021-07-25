@@ -27,8 +27,8 @@ module Chip8
         end
       end
 
-      def new_position(new_position, offset: 0)
-        final_position = new_position + offset
+      def update_index(new_index, offset: 0)
+        final_position = new_index + offset
         raise ArgumentError, "Invalid Position: #{final_position}" if final_position > 0xFFF # 4095
 
         @index = final_position

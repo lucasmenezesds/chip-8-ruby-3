@@ -14,67 +14,67 @@ describe Chip8::Components::Clock do
 
   context "#update" do
     it "should call the update for delay and sound timer" do
-      expect(subject).to receive(:update_delay_timer).exactly(1)
-      expect(subject).to receive(:update_sound_timer).exactly(1)
+      expect(subject).to receive(:tick_delay_timer).exactly(1)
+      expect(subject).to receive(:tick_sound_timer).exactly(1)
       subject.update
     end
   end
 
-  context "#set_delay_timer" do
+  context "#update_delay_timer" do
     it "should update the value for delay timer" do
-      subject.set_delay_timer(0xF)
+      subject.update_delay_timer(0xF)
 
       expect(subject.delay_timer).to eq(0xF)
     end
 
     it "should raise an argument error if new_value > 0xFF" do
-      expect { subject.set_delay_timer(0xFF1) }.to raise_error(ArgumentError)
+      expect { subject.update_delay_timer(0xFF1) }.to raise_error(ArgumentError)
     end
   end
 
-  context "#set_sound_timer" do
+  context "#update_sound_timer" do
     it "should update the value for sound timer" do
-      subject.set_sound_timer(0xFA)
+      subject.update_sound_timer(0xFA)
 
       expect(subject.sound_timer).to eq(0xFA)
     end
 
     it "should raise an argument error if new_value > 0xFF" do
-      expect { subject.set_sound_timer(0xFF2) }.to raise_error(ArgumentError)
+      expect { subject.update_sound_timer(0xFF2) }.to raise_error(ArgumentError)
     end
   end
 
-  context "#update_delay_timer" do
+  context "#tick_delay_timer" do
     it "should reduce the value of delay timer" do
-      subject.set_delay_timer(0xFA)
+      subject.update_delay_timer(0xFA)
 
-      subject.update_delay_timer
+      subject.tick_delay_timer
 
       expect(subject.delay_timer).to eq(0xF9)
     end
 
     it "should not reduce the value of delay timer to a negative value" do
-      subject.set_delay_timer(0x0)
+      subject.update_delay_timer(0x0)
 
-      subject.update_delay_timer
+      subject.tick_delay_timer
 
       expect(subject.delay_timer).to eq(0x0)
     end
   end
 
-  context "#update_sound_timer" do
+  context "#tick_sound_timer" do
     it "should reduce the value of sound timer" do
-      subject.set_sound_timer(0xF1)
+      subject.update_sound_timer(0xF1)
 
-      subject.update_sound_timer
+      subject.tick_sound_timer
 
       expect(subject.sound_timer).to eq(0xF0)
     end
 
     it "should not reduce the value of sound timer to a negative value" do
-      subject.set_sound_timer(0x0)
+      subject.update_sound_timer(0x0)
 
-      subject.update_sound_timer
+      subject.tick_sound_timer
 
       expect(subject.sound_timer).to eq(0x0)
     end

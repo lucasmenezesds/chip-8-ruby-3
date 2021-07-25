@@ -7,8 +7,9 @@ require "io/console"
 
 module Chip8
   module Helpers
+    # Debug Helpers
     module Debug
-      def self.debug(opcode, command_action, nibble, program_counter: nil, full_nibble: nil, force_debug: false)
+      def self.debug(opcode, command_action, nibble, program_counter: nil, force_debug: false)
         return unless $DEBUG_FLAG || force_debug
 
         # Thread.new do
@@ -23,7 +24,7 @@ module Chip8
       end
 
       def self.transform_nibble(nibble)
-        nibble.each_with_object({}) { |(k, v), h| h[k] = v&.to_s(16); } if nibble.is_a?(Hash)
+        nibble.transform_values { |value| value&.to_s(16); } if nibble.is_a?(Hash)
       end
 
       def self.toggle_step_by_step

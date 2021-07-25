@@ -1,14 +1,17 @@
 # frozen_string_literal: true
 
 require_relative "../helpers/debug"
+
 # rubocop:disable Metrics/CyclomaticComplexity
 # rubocop:disable Metrics/AbcSize
 # rubocop:disable Metrics/MethodLength
 # rubocop:disable Metrics/ModuleLength
 # rubocop:disable Metrics/ParameterLists
+# rubocop:disable Metrics/PerceivedComplexity
+
 module Chip8
   module Components
-    # Chip-8's Instructions
+    # Chip-8s Instructions
     module Instructions
       def self.run(nibbles, display:, keyboard:, memory:, program_counter:, register:, stack:, clock:)
         case nibbles["instruction"]
@@ -137,19 +140,19 @@ module Chip8
       def self.instruction_00ee(nibbles, program_counter, stack)
         Chip8::Helpers::Debug.debug("00EE", "(00EE 'popping' Subroutines)", nibbles, program_counter: program_counter)
         popped_data = stack.pop_data
-        program_counter.new_position(popped_data)
+        program_counter.update_index(popped_data)
       end
 
       def self.instruction_1nnn(nibbles, program_counter)
         Chip8::Helpers::Debug.debug("1NNN", "(jump)", nibbles["nnn"].to_s(16), program_counter: program_counter)
-        program_counter.new_position(nibbles["nnn"])
+        program_counter.update_index(nibbles["nnn"])
       end
 
       def self.instruction_2nnn(nibbles, program_counter, stack)
         Chip8::Helpers::Debug.debug("2NNN", "(2NNN 'pushing' Subroutines)", nibbles["nnn"].to_s(16),
                                     program_counter: program_counter)
         stack.push_data(program_counter.index)
-        program_counter.new_position(nibbles["nnn"])
+        program_counter.update_index(nibbles["nnn"])
       end
 
       def self.instruction_3xnn(nibbles, program_counter, register)
@@ -185,7 +188,7 @@ module Chip8
 
       def self.instruction_annn(nibbles, program_counter, register)
         Chip8::Helpers::Debug.debug("ANNN", "(set index register I)", nibbles, program_counter: program_counter)
-        register.set_index(nibbles["nnn"])
+        register.update_index(nibbles["nnn"])
       end
 
       def self.instruction_exa1(keyboard, nibbles, program_counter, register)
@@ -215,10 +218,9 @@ module Chip8
       end
 
       def self.instruction_bnnn(nibbles, program_counter, register)
-        # Add the second "jump" instruction later [Other Chip-8 implementation]
         Chip8::Helpers::Debug.debug("BNNN", "(set index register I[Jump with offset])", nibbles,
                                     program_counter: program_counter)
-        program_counter.new_position(nibbles["nnn"], offset: register.get_variable_in_position(0x0))
+        program_counter.update_index(nibbles["nnn"], offset: register.get_variable_in_position(0x0))
       end
 
       def self.instruction_6xnn(nibbles, program_counter, register)
@@ -245,13 +247,13 @@ module Chip8
       def self.instruction_fx15(clock, nibbles, program_counter, register)
         Chip8::Helpers::Debug.debug("FX15", "Sets delay timer = VX value", nibbles, program_counter: program_counter)
         variable_x_value = register.get_variable_in_position(nibbles["x"])
-        clock.set_delay_timer(variable_x_value)
+        clock.update_delay_timer(variable_x_value)
       end
 
       def self.instruction_fx18(clock, nibbles, program_counter, register)
         Chip8::Helpers::Debug.debug("FX18", "Sets sound timer = VX Value", nibbles, program_counter: program_counter)
         variable_x_value = register.get_variable_in_position(nibbles["x"])
-        clock.set_sound_timer(variable_x_value)
+        clock.update_sound_timer(variable_x_value)
       end
 
       def self.instruction_fx1e(nibbles, program_counter, register)
@@ -259,7 +261,7 @@ module Chip8
         variable_x_value = register.get_variable_in_position(nibbles["x"])
         current_register_index = register.index
         final_index = variable_x_value + current_register_index
-        register.set_index(final_index)
+        register.update_index(final_index)
       end
 
       def self.instruction_fx29(nibbles, program_counter, register)
@@ -267,7 +269,7 @@ module Chip8
         font_index = Fonts::FONT_STARTING_ADDRESS
         variable_x_value = (register.get_variable_in_position(nibbles["x"]) & 0xF) * 5
         final_value = font_index + variable_x_value
-        register.set_index(final_value)
+        register.update_index(final_value)
       end
 
       def self.instruction_fx33(memory, nibbles, program_counter, register)
@@ -319,3 +321,4 @@ end
 # rubocop:enable Metrics/MethodLength
 # rubocop:enable Metrics/ModuleLength
 # rubocop:enable Metrics/ParameterLists
+# rubocop:enable Metrics/PerceivedComplexity

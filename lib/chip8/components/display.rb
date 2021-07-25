@@ -26,8 +26,8 @@ module Chip8
       end
 
       def update
-        @clock.update_delay_timer
-        @clock.update_sound_timer
+        @clock.tick_delay_timer
+        @clock.tick_sound_timer
       end
 
       def draw
@@ -56,8 +56,9 @@ module Chip8
           @cpu_status.stop_it
           puts "== Bye Bye! =="
         when Gosu::KB_P
+          # rubocop:disable Style/GlobalVars
           $STEP_BY_STEP_FLAG = !$STEP_BY_STEP_FLAG
-
+          # rubocop:enable Style/GlobalVars
         when Gosu::KB_8
           @clock.decrease_cpu_clock
         when Gosu::KB_9
