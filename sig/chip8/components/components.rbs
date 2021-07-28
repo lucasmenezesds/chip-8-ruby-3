@@ -1,0 +1,121 @@
+module Chip8
+  module Components
+    class Clock # OK
+      @clock_hz: Integer
+
+      attr_reader delay_timer: Integer
+      attr_reader sound_timer: Integer
+      attr_reader cpu_clock: Float
+
+      def initialize: -> void
+      def update: -> void
+      def update_delay_timer: (Integer new_value) -> void
+      def update_sound_timer: (Integer new_value) -> void
+      def tick_delay_timer: -> void
+      def tick_sound_timer: -> void
+      def increase_cpu_clock: -> void
+      def decrease_cpu_clock: -> void
+      def reset_cpu_clock: -> void
+    end
+
+    class CPUStatus # OK
+      attr_reader stopped: bool
+
+      def initialize: -> void
+      def stop_it: -> void
+    end
+
+    # At compoenets/display.rbs file
+    # class Display
+    # end
+
+    module Fonts # OK
+      FONTS: Array[Integer]
+      FONT_STARTING_ADDRESS: Integer
+      FONT_ENDING_ADDRESS: Integer
+    end
+
+    # At compoenets/instructions.rbs file
+    # class Instructions
+    # end
+
+    class Keyboard # OK
+      KEYBOARD_POSITIONS: Hash[Integer, Integer]
+
+      attr_reader keyboard_register: Array[Integer]
+      def initialize: -> Array[Integer]
+      def press_key: (Integer key_id) -> void
+      def release_key: (Integer key_id) -> void
+      def key_pressed?: (Integer key_position) -> bool
+      def key_value: (Integer key_id) -> Integer
+      def position_of_key_pressed: -> (Integer | nil)
+    end
+
+    class Memory # OK
+      include Fonts
+
+      RAM_STARTING_ADDRESS: Integer
+      RAM_ENDING_ADDRESS: Integer
+      PROGRAMS_STARTING_ADDRESS: Integer
+      TOTAL_MEMORY_SIZE: Integer
+
+
+      attr_reader memory: Array[Integer]
+
+      @memory: Array[Integer]
+
+      def initialize: -> void
+      def update_value: (Integer array_position, Integer new_value) -> void
+      def load_fonts_into_memory: -> void
+      def clean: -> void
+      def access: (Integer array_position) -> Integer
+      def load_rom: (Array[Integer] bytecode) -> void
+    end
+
+    class ProgramCounter # OK
+      @starting_index: Integer
+      # @index: Integer # attr_reader is enough.
+
+      attr_reader index: Integer
+
+      def initialize: (starting_index: Integer) -> void
+      def increment_index_position: -> void
+      def decrement_index_position: -> void
+      def update_index: (Integer new_index, ?offset: Integer)-> void
+    end
+
+    class Register
+      @variable: Array[Integer]
+
+      attr_reader index: (Integer)
+
+      def initialize: -> void
+      def update_index: ((Integer) new_index) -> void
+      def get_variable_in_position: (Integer variable_pos) -> Integer
+      def set_variable_in_position: (Integer variable_pos, Integer new_value) -> void
+      def add_to_variable: (Integer variable_pos, Integer value_to_sum) -> void
+      def copy_variable_data_from_to: (Integer from_pos_y, Integer to_pos_x) -> void
+      def bitwise_logical_or: (Integer pos_x, Integer pos_y) -> void
+      def bitwise_logical_and: (Integer pos_x, Integer pos_y) -> void
+      def bitwise_logical_xor: (Integer pos_x, Integer pos_y) -> void
+      def sum_variable_from_into: (Integer pos_y, Integer pos_x) -> void
+      def subtract_variables: (Integer first_op, Integer second_op, var_destination: Integer var_destination) -> void
+      def bitwise_logical_shift: (Integer pos_x, Integer pos_y, ?to_right: bool to_right ) -> void
+      def set_random_value_into_variable: (Integer pos_x, Integer value) -> void
+      def new_display_data: (Integer register_x, Integer register_y, Integer n_pixels_tall, Memory memory, untyped display_buffer) -> untyped
+      def draw_sprite_on_display_buffer: (untyped display_buffer, Integer pos_y, Integer register_x, Integer sprite) -> untyped # TODO: Fix Matrix type later
+
+      private
+      def validate_position_ranges: (Integer pos_x, Integer pos_y) -> void # TODO: Fix Matrix type later
+    end
+
+    class Stack # OK
+      @data: Array[Integer]
+
+      def initialize: -> void
+      def push_data: (Integer data) -> void
+      def pop_data: -> Integer
+    end
+  end
+end
+

@@ -39,7 +39,7 @@ module Chip8
         when 0x7 # 7XNN OK
           instruction_7xnn(nibbles, program_counter, register)
         when 0x8
-          arithmetical_methods(nibbles, register, display, program_counter)
+          arithmetical_methods(nibbles, register, program_counter)
         when 0x9 # 9XY0 OK
           instruction_9xy0(nibbles, program_counter, register)
         when 0xA
@@ -88,7 +88,7 @@ module Chip8
       end
 
       # Fourth nibbles Operations
-      def self.arithmetical_methods(nibbles, register, _display, program_counter)
+      def self.arithmetical_methods(nibbles, register, program_counter)
         case nibbles["n"] # Nibble 4
         when 0x0 # 0x8XY0 OK
           Chip8::Helpers::Debug.debug("8XY0", "(set register VX from VY)", nibbles, program_counter: program_counter)

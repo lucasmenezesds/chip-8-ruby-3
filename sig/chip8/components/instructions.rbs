@@ -1,0 +1,35 @@
+
+module Chip8
+  module Components
+    module Instructions
+      def self.run: (Hash[String, Integer] nibbles, display: untyped, keyboard: Keyboard, memory: Memory, program_counter: ProgramCounter, register: Register, stack: Stack, clock: Clock) -> void
+      def self.arithmetical_methods: (Hash[String, Integer] nibbles, Register register, ProgramCounter program_counter) -> void
+      def self.instruction_00e0: (untyped display, Hash[String, Integer] nibbles, ProgramCounter program_counter) -> void
+      def self.instruction_00ee: (Hash[String, Integer] nibbles, ProgramCounter program_counter, Stack stack) -> void
+      def self.instruction_1nnn: (Hash[String, Integer] nibbles, ProgramCounter program_counter) -> void
+      def self.instruction_2nnn: (Hash[String, Integer] nibbles, ProgramCounter program_counter, Stack stack) -> void
+      def self.instruction_3xnn: (Hash[String, Integer] nibbles, ProgramCounter program_counter, Register register) -> void
+      def self.instruction_4xnn: (Hash[String, Integer] nibbles, ProgramCounter program_counter, Register register) -> void
+      def self.instruction_5xy0: (Hash[String, Integer] nibbles, ProgramCounter program_counter, Register register) -> void
+      def self.instruction_7xnn: (Hash[String, Integer] nibbles, ProgramCounter program_counter, Register register) -> void
+      def self.instruction_9xy0: (Hash[String, Integer] nibbles, ProgramCounter program_counter, Register register) -> void
+      def self.instruction_annn: (Hash[String, Integer] nibbles, ProgramCounter program_counter, Register register) -> void
+      def self.instruction_exa1: (Keyboard keyboard, Hash[String, Integer] nibbles, ProgramCounter program_counter, Register register) -> void
+      def self.instruction_ex9e: (Keyboard keyboard, Hash[String, Integer] nibbles, ProgramCounter program_counter, Register register) -> void
+      def self.instruction_dxyn: (untyped display, Memory memory, Hash[String, Integer] nibbles, ProgramCounter program_counter, Register register) -> void
+      def self.instruction_cxnn: (Hash[String, Integer] nibbles, ProgramCounter program_counter, Register register) -> void
+      def self.instruction_bnnn: (Hash[String, Integer] nibbles, ProgramCounter program_counter, Register register) -> void
+      def self.instruction_6xnn: (Hash[String, Integer] nibbles, ProgramCounter program_counter, Register register) -> void
+      def self.instruction_fx07: (Clock clock, Hash[String, Integer] nibbles, ProgramCounter program_counter, Register register) -> void
+      def self.instruction_fx0a: (Keyboard keyboard, Hash[String, Integer] nibbles, ProgramCounter program_counter, Register register) -> void
+      def self.instruction_fx15: (Clock clock, Hash[String, Integer] nibbles, ProgramCounter program_counter, Register register) -> void
+      def self.instruction_fx18: (Clock clock, Hash[String, Integer] nibbles, ProgramCounter program_counter, Register register) -> void
+      def self.instruction_fx1e: (Hash[String, Integer] nibbles, ProgramCounter program_counter, Register register) -> void
+      def self.instruction_fx29: (Hash[String, Integer] nibbles, ProgramCounter program_counter, Register register) -> void
+      def self.instruction_fx33: (Memory memory, Hash[String, Integer] nibbles, ProgramCounter program_counter, Register register) -> void
+      def self.instruction_fx55: (Memory memory, Hash[String, Integer] nibbles, ProgramCounter program_counter, Register register) -> void
+      def self.instruction_fx65: (Memory memory, Hash[String, Integer] nibbles, ProgramCounter program_counter, Register register) -> void
+      def self.convert_binary_coded_into_decimal_digits: (Hash[String, Integer] nibbles, Memory memory, Register register) -> void
+    end
+  end
+end

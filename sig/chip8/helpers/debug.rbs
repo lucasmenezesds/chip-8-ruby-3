@@ -1,0 +1,9 @@
+module Chip8
+  module Helpers
+    module Debug
+      def self.debug: (String opcode, String command_action, untyped nibble, ?program_counter: Chip8::Components::ProgramCounter, ?force_debug: bool) -> void
+      def self.transform_nibble: (untyped nibble) -> Hash[String, String]
+      def self.toggle_step_by_step: -> void
+    end
+  end
+end
