@@ -8,6 +8,7 @@ where I wrote couple things that might be helpful.
 1. Computer Organization and Architecture
 2. Bit, Bytes, etc~
 3. Decimal, Binary and Hexadecimal Numbers
+4. [Bitwise Operations](/extras/computer_science/bitwise_operations.md)
 
 ## Computer Organization and Architecture
 
