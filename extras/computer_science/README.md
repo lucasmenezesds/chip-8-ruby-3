@@ -8,6 +8,7 @@ where I wrote couple things that might be helpful.
 1. Computer Organization and Architecture
 2. Bit, Bytes, etc~
 3. Decimal, Binary and Hexadecimal Numbers
+4. [Bitwise Operations](/extras/computer_science/bitwise_operations.md)
 
 ## Computer Organization and Architecture
 
@@ -19,7 +20,7 @@ recommend you to have a check on the following two videos:
 + [Beyond FPS: What does a CPU do? - NGON](https://www.youtube.com/watch?v=Yq-SpmIgmGs)
 
 If you want to check all the videos, then here is
-the [playlist](https://www.youtube.com/watch?v=DSamxtiCIyM&list=PLcKpytGyWm9o6SHKuag4Rj-J_0yQxJ4PV
+the [playlist](https://www.youtube.com/watch?v=DSamxtiCIyM&list=PLcKpytGyWm9o6SHKuag4Rj-J_0yQxJ4PV)
 
 **NOTE:**
 If you speak *Portuguese*, você pode checar este [video do Fábio Akita](https://www.youtube.com/watch?v=hYJ3dvHjeOE)
