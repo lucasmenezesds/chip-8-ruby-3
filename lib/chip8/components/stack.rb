@@ -13,7 +13,7 @@ module Chip8
       end
 
       def pop_data
-        @data.pop
+        @data.pop || 0
       end
     end
   end

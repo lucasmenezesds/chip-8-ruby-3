@@ -5,8 +5,6 @@ require_relative "chip8/interpreter"
 
 # Chip-8 Application's module
 module Chip8
-  class Error < StandardError; end
-
   # Chip-8 Emulator, its setup everything to run the emulator(interpreter)
   class Emulator
     def initialize(rom_path:)

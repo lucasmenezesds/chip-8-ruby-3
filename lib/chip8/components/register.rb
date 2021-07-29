@@ -100,11 +100,11 @@ module Chip8
         @variable[0xF] = 0
 
         (0..(n_pixels_tall - 1)).each do |row|
-          var_y = @variable[register_y] % Display::HEIGHT + row # 0x20
+          var_y = @variable[register_y] % Display::HEIGHT + row
           sprite_memory_address = @index + row
           sprite = memory.access(sprite_memory_address)
 
-          break if var_y.nil? || var_y > Display::HEIGHT - 1 # 0x1F= 31 # To stop drawing when leaving the screen
+          break if var_y.nil? || var_y > Display::HEIGHT - 1 # To stop drawing when leaving the screen
 
           draw_sprite_on_display_buffer(display_buffer, var_y, register_x, sprite)
         end
@@ -114,9 +114,9 @@ module Chip8
       # rubocop:disable Metrics/AbcSize
       def draw_sprite_on_display_buffer(display_buffer, var_y, register_x, sprite)
         (0..7).each do |pixel_position|
-          var_x = @variable[register_x] % Display::WIDTH + pixel_position # 0x40
+          var_x = @variable[register_x] % Display::WIDTH + pixel_position
 
-          break if var_x.nil? || var_x > Display::WIDTH - 1 # 0x3F = 63 # To stop drawing when leaving the screen
+          break if var_x.nil? || var_x > Display::WIDTH - 1 # To stop drawing when leaving the screen
 
           # the way we output in the screen is from the high bit to the low bit
           memory_pixel = (sprite & (1 << (7 - pixel_position))).positive? ? 1 : 0
