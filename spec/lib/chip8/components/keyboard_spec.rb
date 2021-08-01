@@ -6,6 +6,10 @@ describe Chip8::Components::Keyboard do
   context "after initialized" do
     subject { described_class.new }
 
+    it "should be initialized with a 16 size array" do
+      expect(subject.keyboard_register.size).to eq 16
+    end
+
     shared_examples "emulating the the keyboards key pressed" do |keyboard_key, expected_pos|
       it "should return the expected Vposition #{expected_pos} as 1" do
         subject.press_key(keyboard_key)

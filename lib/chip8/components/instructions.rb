@@ -144,12 +144,12 @@ module Chip8
       end
 
       def self.instruction_1nnn(nibbles, program_counter)
-        Chip8::Helpers::Debug.debug("1NNN", "(jump)", nibbles["nnn"].to_s(16), program_counter: program_counter)
+        Chip8::Helpers::Debug.debug("1NNN", "(jump)", nibbles["nnn"]&.to_s(16), program_counter: program_counter)
         program_counter.update_index(nibbles["nnn"])
       end
 
       def self.instruction_2nnn(nibbles, program_counter, stack)
-        Chip8::Helpers::Debug.debug("2NNN", "(2NNN 'pushing' Subroutines)", nibbles["nnn"].to_s(16),
+        Chip8::Helpers::Debug.debug("2NNN", "(2NNN 'pushing' Subroutines)", nibbles["nnn"]&.to_s(16),
                                     program_counter: program_counter)
         stack.push_data(program_counter.index)
         program_counter.update_index(nibbles["nnn"])
@@ -224,7 +224,7 @@ module Chip8
       end
 
       def self.instruction_6xnn(nibbles, program_counter, register)
-        Chip8::Helpers::Debug.debug("6XNN", "(set register VX)", nibbles["nn"].to_s(16),
+        Chip8::Helpers::Debug.debug("6XNN", "(set register VX)", nibbles["nn"]&.to_s(16),
                                     program_counter: program_counter)
         register.set_variable_in_position(nibbles["x"], nibbles["nn"])
       end

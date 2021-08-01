@@ -89,7 +89,7 @@ module Chip8
 
         final_value = @variable[first_op] - @variable[second_op]
 
-        @variable[var_destination] = final_value & 0xFF
+        @variable[var_destination] = final_value & 0xFF # Two's Complement in case of negative number
       end
 
       def set_random_value_into_variable(pos_x, value)

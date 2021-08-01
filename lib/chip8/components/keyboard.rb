@@ -26,7 +26,7 @@ module Chip8
       attr_reader :keyboard_register
 
       def initialize
-        @keyboard_register = Array.new(0xF, 0x0)
+        @keyboard_register = Array.new(0x10, 0x0)
       end
 
       def press_key(key_id)
@@ -40,7 +40,7 @@ module Chip8
       end
 
       def key_pressed?(key_position)
-        @keyboard_register[key_position].positive?
+        @keyboard_register[key_position]&.positive?
       end
 
       def key_value(key_id)
