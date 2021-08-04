@@ -1,14 +1,14 @@
 # Chip-8 Emulator in Ruby 3
 
-Hi! This project is called "CHIP-8 emulator" in Ruby 3 but actually, CHIP-8 is an interpreted programming language, and
-I'll be implementing it...
+Hi! This project is called "CHIP 8 emulator" in Ruby 3 but actually, CHIP 8 is an interpreted programming language, and
+this is an implementation of it...
 
-Anyway if you're interested on knowing more about it, you can check [here](https://en.wikipedia.org/wiki/CHIP-8).
+If you're interested on knowing more about it, you can check [here](https://en.wikipedia.org/wiki/CHIP-8).
 
 ### Extras
 
-If you you don't know from where to start or is wondering about some parts of the process of developing this project,
-you can check the [extra section](/extras/README.md), where I wrote down some notes that maybe could be helpful.
+In case you don't know from where to start or is wondering about some parts of the process for developing this project, you
+can check the [extra section](/extras/README.md), where I wrote down some notes that maybe could be helpful.
 
 ## Installation
 
@@ -40,7 +40,43 @@ $ bundle install
 
 ## Usage
 
-TODO: Write usage instructions here
+**To run the project:**
+
+1. Place a rom inside the folder `roms/`
+2. From the root folder run the command `bin/chip8 0 'roms/name_of_the_rom.extension'`
+
+*If you want to enable the debug then set the flag zero to 1*
+
+### Keyboard
+
+--------------------------------------------
+
+Your Keyboard => CHIP-8 Keybaord
+
+`1` `2` `3` `4`        => `1` `2` `3` `C`
+
+`Q` `W` `E` `R`        => `4` `5` `6` `D`
+
+`A` `S` `D` `F`        => `7` `8` `9` `E`
+
+`Z` `X` `C` `V`        => `A` `0` `B` `F`
+
+**NOTE:** This Keyboard is for QWERTY setup.
+
+--------------------------------------------
+
+
+
+**Other Commands**
+
+*(Not in the numpad)*
+
+- **Number 8** => Reduce ROM speed by 20
+- **Number 9** => Increase ROM speed by 20
+- **Number 0** => Reset ROM speed to 60Hz
+
+---------------
+
 
 ## Development
 
@@ -49,6 +85,8 @@ otherwise check the **Other O.S'** section_).
 
 Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to
 experiment.
+
+The used ruby's version is `3.0.2`.
 
 ## Other information
 

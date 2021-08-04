@@ -19,10 +19,19 @@ module Chip8
         end
       end
 
-      def new_position(new_position)
-        raise ArgumentError, "Invalid Position: #{new_position}" if new_position > 0xFFF # 4095
+      def decrement_index_position
+        if @index == @starting_index
+          @index = 0xFFF # 4095
+        else
+          @index -= 0x2
+        end
+      end
 
-        @index = new_position
+      def update_index(new_index, offset: 0)
+        final_position = new_index + offset
+        raise ArgumentError, "Invalid Position: #{final_position}" if final_position > 0xFFF # 4095
+
+        @index = final_position
       end
     end
   end

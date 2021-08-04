@@ -28,7 +28,7 @@ describe Chip8::Components::Memory do
       memory_data = subject.memory
       uniq_data = memory_data.uniq
 
-      expect(uniq_data.size).to eq 1
+      expect(uniq_data.size).to eq 3
       expect(uniq_data[0]).to eq 0
     end
   end
@@ -52,7 +52,7 @@ describe Chip8::Components::Memory do
       current_memory = subject.memory
       after_uniq_data = current_memory.uniq
 
-      expect(before_uniq_data.size).to eq 1
+      expect(before_uniq_data.size).to eq 3
       expect(after_uniq_data.size).to eq 3
       expect(after_uniq_data).to match([0x0, 0xF0, 0x90])
     end
@@ -94,8 +94,8 @@ describe Chip8::Components::Memory do
 
       sliced_array = current_memory[MOCK_PROGRAMS_STARTING_ADDRESS..MOCK_PROGRAMS_STARTING_ADDRESS + 3]
 
-      expect(before_uniq_data.size).to eq 1
-      expect(after_uniq_data.size).to eq 5
+      expect(before_uniq_data.size).to eq 3
+      expect(after_uniq_data.size).to eq 7
 
       expect(sliced_array).to match(bytecodes)
     end

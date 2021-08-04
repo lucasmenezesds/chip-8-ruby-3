@@ -1,11 +1,21 @@
 # frozen_string_literal: true
 
 require "matrix"
+require "gosu"
 
 describe Chip8::Components::Display do
-  context "when initialized" do
-    cpu_status = Chip8::Components::CPUStatus.new
-    subject { described_class.new(cpu_status) }
+  before do
+    @cpu_double = instance_double("Chip8::Components::CPUStatus")
+    @keyboard_double = instance_double("Chip8::Components::Keyboard")
+    @clock_double = instance_double("Chip8::Components::Clock")
+  end
+
+  context "after initialized" do
+    subject do
+      described_class.new(cpu_status: @cpu_double,
+                          keyboard: @keyboard_double,
+                          clock: @clock_double)
+    end
     it "should have the expected caption" do
       caption = subject.caption
 
@@ -18,8 +28,10 @@ describe Chip8::Components::Display do
       stub_const("Chip8::Components::Display::WIDTH", 3)
       stub_const("Chip8::Components::Display::HEIGHT", 2)
       stub_const("Chip8::Components::Display::SCALE", 1)
-      @cpu_status = Chip8::Components::CPUStatus.new
-      @mocked_display = described_class.new(@cpu_status)
+
+      @mocked_display = described_class.new(cpu_status: @cpu_double,
+                                            keyboard: @keyboard_double,
+                                            clock: @clock_double)
     end
 
     context "#update_display_buffer" do
@@ -60,25 +72,53 @@ describe Chip8::Components::Display do
 
     context "#button_down" do
       it "should have the method called once" do
-        expect(@mocked_display).to receive(:button_down).with(41)
+        expect(@mocked_display).to receive(:button_down).with(Gosu::KB_ESCAPE)
 
-        @mocked_display.button_down(41) # Gosu::KB_ESCAPE
+        @mocked_display.button_down(Gosu::KB_ESCAPE) # Gosu::KB_ESCAPE
       end
 
       it "should call the @halt_option.stop_it method once" do
-        @mocked_display.button_down(41) # Gosu::KB_ESCAPE
+        allow(@cpu_double).to receive(:stop_it)
+        expect(@mocked_display).to receive(:puts).exactly(1)
 
-        allow_any_instance_of(Chip8::Components::CPUStatus).to receive(:stop_it)
+        @mocked_display.button_down(Gosu::KB_ESCAPE)
       end
 
       it "should allow the method to receive invalid id" do
+        allow(@keyboard_double).to receive(:press_key).with(nil)
+
         expect(@mocked_display.button_down(nil)).to be_nil
+      end
+
+      it "should shift the $STEP_BY_STEP_FLAG flag value" do
+        $STEP_BY_STEP_FLAG = true
+
+        @mocked_display.button_down(Gosu::KB_P) # Gosu::KB_ESCAPE
+        expect($STEP_BY_STEP_FLAG).to be_falsey
+      end
+
+      it "should call @clock.decrease_cpu_clock" do
+        expect(@clock_double).to receive(:decrease_cpu_clock).exactly(1)
+
+        @mocked_display.button_down(Gosu::KB_8)
+      end
+
+      it "should call @clock.increase_cpu_clock" do
+        expect(@clock_double).to receive(:increase_cpu_clock).exactly(1)
+
+        @mocked_display.button_down(Gosu::KB_9)
+      end
+
+      it "should call @clock.reset_cpu_clock" do
+        expect(@clock_double).to receive(:reset_cpu_clock).exactly(1)
+
+        @mocked_display.button_down(Gosu::KB_0)
       end
     end
 
     context "#button_up" do
       it "should have the method called once" do
-        expect(@mocked_display).to receive(:button_up).with(41).once
+        expect(@mocked_display).to receive(:button_up).with(Gosu::KB_ESCAPE).once
 
         @mocked_display.button_up(41) # Gosu::KB_ESCAPE
       end
@@ -86,11 +126,22 @@ describe Chip8::Components::Display do
       it "should have the method close called once" do
         expect(@mocked_display).to receive(:close).once
 
-        @mocked_display.button_up(41) # Gosu::KB_ESCAPE
+        @mocked_display.button_up(Gosu::KB_ESCAPE) # Gosu::KB_ESCAPE
       end
 
       it "should allow the method to receive invalid id" do
+        allow(@keyboard_double).to receive(:release_key).with(nil)
+
         expect(@mocked_display.button_up(nil)).to be_nil
+      end
+    end
+
+    context "#update" do
+      it "should have the clock methods " do
+        expect(@clock_double).to receive(:tick_delay_timer).exactly(1)
+        expect(@clock_double).to receive(:tick_sound_timer).exactly(1)
+
+        @mocked_display.update
       end
     end
   end

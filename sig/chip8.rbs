@@ -1,0 +1,40 @@
+module Chip8
+  VERSION: String
+
+  class Interpreter
+    include Components
+
+    @cpu_status: Components::CPUStatus
+    @keyboard: Components::Keyboard
+    @clock: Components::Clock
+    @display: untyped # Components::Display # TODO: Update here after display.rbs is fix
+    @memory: Components::Memory
+    @program_counter: Components::ProgramCounter
+    @register: Components::Register
+    @stack: Components::Stack
+    @opcode: (Integer | nil)
+    @nibbles: untyped
+
+    def initialize: -> void
+    def cpu_cycle: -> void
+    def run: -> void
+    def load_rom: (Array[Integer] bytecode) -> void
+    def show_display: -> void
+
+    private
+    def fetch: -> void
+    def decode: -> void
+    def execute: -> void
+  end
+
+  class Emulator
+    @rom_path: String
+    @cpu: Interpreter
+
+    def initialize: (rom_path: String) -> Interpreter
+    def run: -> void
+
+    private
+    def read_cartridge: -> Array[Integer]
+  end
+end

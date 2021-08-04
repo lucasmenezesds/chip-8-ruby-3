@@ -14,6 +14,7 @@ group :development do
   gem "rubocop-rake", require: false
   gem "rubocop-rspec", require: false
   gem "simplecov", require: false
+  gem "steep", require: false
 end
 
 group :test, :development do

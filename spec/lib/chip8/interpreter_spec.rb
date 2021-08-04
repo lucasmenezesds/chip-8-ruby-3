@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-MOCK_PROGRAMS_STARTING_ADDRESS = 0x9
-
 describe Chip8::Interpreter do
   before do
     fonts_mock = [
@@ -13,7 +11,7 @@ describe Chip8::Interpreter do
 
     stub_const("#{memory_module}::RAM_STARTING_ADDRESS", 0x0)
     stub_const("#{memory_module}::RAM_ENDING_ADDRESS", 0x8)
-    stub_const("#{memory_module}::PROGRAMS_STARTING_ADDRESS", MOCK_PROGRAMS_STARTING_ADDRESS)
+    stub_const("#{memory_module}::PROGRAMS_STARTING_ADDRESS", 0x9)
     stub_const("#{memory_module}::TOTAL_MEMORY_SIZE", 0x10)
     stub_const("#{fonts_module}::FONTS", fonts_mock)
     stub_const("#{memory_module}::FONT_STARTING_ADDRESS", 0x1)

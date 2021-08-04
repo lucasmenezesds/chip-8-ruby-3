@@ -9,10 +9,13 @@ module Chip8
 
     def initialize
       @cpu_status = CPUStatus.new
-      @display = Display.new(@cpu_status)
+      @keyboard = Keyboard.new
+      @clock = Clock.new
+      @display = Display.new(cpu_status: @cpu_status, keyboard: @keyboard, clock: @clock)
       @memory = Memory.new
       @program_counter = ProgramCounter.new(starting_index: Memory::PROGRAMS_STARTING_ADDRESS)
       @register = Register.new
+      @stack = Stack.new
       @opcode = nil
       @nibbles = { "instruction" => nil, "x" => 0, "y" => 0, "n" => nil, "nn" => nil, "nnn" => nil }
     end
@@ -24,8 +27,14 @@ module Chip8
     end
 
     def run
+      start_time = Time.now
       loop do
+        time_elapsed = Time.now - start_time
+        next unless time_elapsed >= @clock.cpu_clock
+
         cpu_cycle
+
+        start_time = Time.now
         break if @cpu_status.stopped
       end
     end
@@ -79,7 +88,10 @@ module Chip8
                        display: @display,
                        register: @register,
                        program_counter: @program_counter,
-                       memory: @memory)
+                       memory: @memory,
+                       keyboard: @keyboard,
+                       stack: @stack,
+                       clock: @clock)
     end
   end
 end
