@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-gem "gosu", "~> 1.2"
+gem "gosu", "~> 1.4"
 gem "rake", "~> 13.0"
 gem "rbs", "~> 1.1", ">= 1.1.1"
 
