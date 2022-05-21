@@ -14,7 +14,7 @@ GEM
     docile (1.4.0)
     ffi (1.15.3)
     formatador (0.3.0)
-    gosu (1.2.0)
+    gosu (1.4.3)
     guard (2.17.0)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -114,7 +114,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  gosu (~> 1.2)
+  gosu (~> 1.4)
   guard
   guard-rspec
   pry
