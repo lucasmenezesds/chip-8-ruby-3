@@ -7,11 +7,8 @@ describe Chip8::Emulator do
       file_double = instance_double("File")
       interpreter_double = instance_double("Chip8::Interpreter")
 
-      # Mocking File Method
-      allow(File).to receive(:open).with("example.8o", "rb").and_yield(file_double)
-
-      # Mocking Read block from File Method
-      allow(file_double).to receive(:read).and_return("\x00\xE0")
+      # Mocking #binread Method
+      allow(File).to receive(:binread).with("example.8o").and_return("\x00\xE0")
 
       # Mocking the Chip8 Interpreter
       allow(Chip8::Interpreter).to receive(:new).and_return(interpreter_double)

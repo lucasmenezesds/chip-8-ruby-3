@@ -26,7 +26,7 @@ module Chip8
     private
 
     def read_cartridge
-      File.open(@rom_path, "rb", &:read).unpack("C*")
+      File.binread(@rom_path).unpack("C*")
     end
   end
 end
