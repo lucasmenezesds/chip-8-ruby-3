@@ -5,6 +5,7 @@ source "https://rubygems.org"
 gem "gosu", "~> 1.4"
 gem "rake", "~> 13.0"
 gem "rbs", "~> 2.5", ">= 2.5.0"
+gem 'matrix', '~> 0.4.2'
 
 group :development do
   gem "guard", require: false
