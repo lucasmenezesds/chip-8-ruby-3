@@ -3,9 +3,10 @@
 source "https://rubygems.org"
 
 gem "gosu", "~> 1.4"
+gem "matrix", "~> 0.4.2"
 gem "rake", "~> 13.0"
 gem "rbs", "~> 2.8", ">= 2.8.4"
-gem "matrix", "~> 0.4.2"
+gem "tty-prompt", "~> 0.23.1"
 
 group :development do
   gem "guard", require: false

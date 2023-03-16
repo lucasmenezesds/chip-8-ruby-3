@@ -12,6 +12,7 @@ SimpleCov.start do
 end
 
 require "chip8"
+require "menu"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

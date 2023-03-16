@@ -4,7 +4,6 @@ describe Chip8::Emulator do
   context "#run" do
     let(:emulator) { Chip8::Emulator.new(rom_path: "example.8o") }
     it "should set the Index Register to the expected value" do
-      file_double = instance_double("File")
       interpreter_double = instance_double("Chip8::Interpreter")
 
       # Mocking #binread Method
@@ -22,6 +21,15 @@ describe Chip8::Emulator do
 
       # Checking if it was executed properly (by returning the stub value)
       expect(emulator.run).to be_truthy
+    end
+
+    context 'when there is a no file error while trying to read the file' do
+      it "should abort runtime with the expected message" do
+        expected_message = "== I couldn't find this game! Please check if the name is correct =="
+        expect do
+          expect { emulator.run }.to raise_error(SystemExit, expected_message)
+        end.to output.to_stderr
+      end
     end
   end
 end
