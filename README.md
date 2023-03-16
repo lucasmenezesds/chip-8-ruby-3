@@ -7,8 +7,8 @@ If you're interested on knowing more about it, you can check [here](https://en.w
 
 ### Extras
 
-In case you don't know from where to start or is wondering about some parts of the process for developing this project, you
-can check the [extra section](/extras/README.md), where I wrote down some notes that maybe could be helpful.
+In case you don't know from where to start or is wondering about some parts of the process for developing this project,
+you can check the [extra section](/extras/README.md), where I wrote down some notes that maybe could be helpful.
 
 ## Installation
 
@@ -43,9 +43,17 @@ $ bundle install
 **To run the project:**
 
 1. Place a rom inside the folder `roms/`
-2. From the root folder run the command `bin/chip8 0 'roms/name_of_the_rom.extension'`
+    1. **NOTE**: The only acceptable extensions are `.o` and `.ch8`, if the game is not with one of this extensions on
+       it's name it'll not show on the menu as an option.
 
-*If you want to enable the debug then set the flag zero to 1*
+2. From the root folder run the command: `bin/chip8`
+    1. Navigate through the options using the up/down arrow keys.
+    2. Hit enter key to select.
+
+**_Another alternative to run the project is to follow the commands:_**
+
+1. From the root folder run the command `bin/chip8 0 'roms/name_of_the_rom.extension'`
+    1. *If you want to enable the debug then set the flag zero to 1*
 
 ### Keyboard
 
@@ -76,7 +84,6 @@ Your Keyboard => CHIP-8 Keybaord
 - **Number 0** => Reset ROM speed to 60Hz
 
 ---------------
-
 
 ## Development
 

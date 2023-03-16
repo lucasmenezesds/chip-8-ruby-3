@@ -27,6 +27,8 @@ module Chip8
 
     def read_cartridge
       File.binread(@rom_path).unpack("C*")
+    rescue Errno::ENOENT
+      abort("== I couldn't find this game! Please check if the name is correct ==")
     end
   end
 end
