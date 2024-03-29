@@ -15,12 +15,16 @@ module Chip8
       WHITE: Integer
       BLACK: Integer
 
-      @cpu_status: Chip8::Components::CPUStatus
-      @keyboard: Chip8::Components::Keyboard
-      @clock: Chip8::Components::Clock
+      @cpu_status: CPUStatus
+      @keyboard: Keyboard
+      @clock: Clock
+      @pixel_texture: Gosu::Image
 
       attr_reader display_buffer: untyped # TODO: Fix Matrix type later
       def initialize: (cpu_status: CPUStatus, keyboard: Keyboard, clock: Clock) -> void
+
+      def create_pixel_texture: -> Gosu::Image
+
       def update: -> void
       def draw: -> void
       def update_display_buffer: (untyped new_display_matrix) -> void# TODO: Fix Matrix type later

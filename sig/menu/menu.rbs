@@ -1,0 +1,21 @@
+module Menu
+  VERSION: String
+
+  class Menu
+    attr_accessor selected_rom: untyped
+
+    def initialize: (?debug_flag: untyped, ?rom_name: String?) -> void
+
+    private
+
+    def define_flow: () -> untyped?
+
+    def valid_rom_name?: () -> bool
+
+    def set_debug_flags: () -> void
+
+    def list_roms: () -> Array[String]
+
+    def show_roms: () -> untyped
+  end
+end
