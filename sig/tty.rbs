@@ -1,0 +1,6 @@
+module TTY
+  class Prompt
+    def initialize: (?help_color: Symbol) -> void
+    def select: (String, Array[String]) -> String
+  end
+end

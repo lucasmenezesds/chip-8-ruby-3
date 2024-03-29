@@ -1,0 +1,21 @@
+module Gosu
+  KB_1: Integer
+  KB_2: Integer
+  KB_3: Integer
+  KB_4: Integer
+  KB_Q: Integer
+  KB_W: Integer
+  KB_E: Integer
+  KB_R: Integer
+  KB_A: Integer
+  KB_S: Integer
+  KB_D: Integer
+  KB_F: Integer
+  KB_Z: Integer
+  KB_X: Integer
+  KB_C: Integer
+  KB_V: Integer
+
+  class Image
+  end
+end

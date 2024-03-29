@@ -1,0 +1,13 @@
+module Menu
+  module Components
+    class Prompt
+      @prompt: TTY::Prompt
+      @rom_list: Array[String]
+
+      def initialize: (rom_list: Array[String]) -> void
+
+      def build_prompt: () -> String
+
+    end
+  end
+end

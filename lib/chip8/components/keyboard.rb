@@ -40,7 +40,7 @@ module Chip8
       end
 
       def key_pressed?(key_position)
-        @keyboard_register[key_position]&.positive?
+        @keyboard_register[key_position]&.positive? || false
       end
 
       def key_value(key_id)

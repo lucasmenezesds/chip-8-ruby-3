@@ -65,8 +65,17 @@ describe Chip8::Components::Display do
         matrix_data = [[0, 0], [3, 0], [5, 6]]
         matrix = Matrix.rows(matrix_data)
 
+        expect(@mocked_display.instance_variable_get(:@pixel_texture)).to receive(:draw).at_least(:once)
         @mocked_display.update_display_buffer(matrix)
         @mocked_display.draw
+      end
+    end
+
+    describe "#create_pixel_texture" do
+      it 'creates a texture of the correct size' do
+        texture = @mocked_display.send(:create_pixel_texture)
+        expect(texture.width).to eq(described_class::SCALE)
+        expect(texture.height).to eq(described_class::SCALE)
       end
     end
 
