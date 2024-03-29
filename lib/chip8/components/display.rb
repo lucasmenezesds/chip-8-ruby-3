@@ -23,6 +23,13 @@ module Chip8
         @cpu_status = cpu_status
         @keyboard = keyboard
         @clock = clock
+        @pixel_texture = create_pixel_texture
+      end
+
+      def create_pixel_texture
+        Gosu.record(SCALE, SCALE) do
+          Gosu.draw_rect(0, 0, SCALE, SCALE, WHITE)
+        end
       end
 
       def update
@@ -37,7 +44,7 @@ module Chip8
 
             next unless value.positive?
 
-            draw_rect(width * SCALE, height * SCALE, SCALE, SCALE, WHITE, 0, :default)
+            @pixel_texture.draw(width * SCALE, height * SCALE, 0, 1, 1, WHITE)
           end
         end
       end
